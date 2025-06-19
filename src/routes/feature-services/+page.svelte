@@ -1,53 +1,91 @@
+<!-- File: src/routes/+page.svelte -->
 <script>
-  let tabs = ['BILLING', 'CHARGING', 'CATALOG', 'EVENTS'];
-  let activeTab = 'CATALOG';
+  let activeTab = 'BILLING';
+  const tabs = [
+    { name: 'BILLING', color: 'bg-pink-200', icon: '🍩' },
+    { name: 'CHARGING', color: 'bg-yellow-200', icon: '🏬' },
+    { name: 'CATALOG', color: 'bg-green-200', icon: '📦' },
+    { name: 'EVENTS', color: 'bg-cyan-200', icon: '❎' },
+  ];
 </script>
 
-<div class="bg-[#7A8D96] text-white min-h-screen font-sans">
-  <div class="text-center pt-10">
-    <h1 class="text-[64px] font-semibold text-white opacity-50 leading-tight">Unparalleled</h1>
-    <h2 class="text-[64px] font-bold text-black leading-tight -mt-4">BSS/OSS Capabilities</h2>
+<main class="min-h-screen bg-[#7f9ba8] text-white font-sans">
+  <!-- Heading -->
+  <section class="text-center pt-12">
+    <h1 class="text-4xl md:text-6xl font-bold">
+      <span class="text-gray-300">Unparalleled</span><br />
+      <span class="text-black">BSS/OSS Capabilities</span>
+    </h1>
+  </section>
+
+  <!-- Tabs -->
+  <div class="flex justify-center gap-4 mt-8 flex-wrap">
+    {#each tabs as tab}
+      <div
+        class={`px-4 py-2 rounded-md text-black flex items-center gap-2 cursor-pointer ${tab.color} ${activeTab === tab.name ? 'ring-2 ring-white' : ''}`}
+        on:click={() => activeTab = tab.name}
+      >
+        <span>{tab.icon}</span>
+        <span class="font-mono">{tab.name}</span>
+      </div>
+    {/each}
   </div>
 
-  <div class="flex justify-center space-x-6 mt-8 px-4">
-    <button class="px-6 py-2 rounded-xl text-black font-semibold bg-pink-200">BILLING</button>
-    <button class="px-6 py-2 rounded-xl text-black font-semibold bg-yellow-200">CHARGING</button>
-    <button class="px-6 py-2 rounded-xl text-black font-semibold bg-lime-100">CATALOG</button>
-    <button class="px-6 py-2 rounded-xl text-black font-semibold bg-cyan-200">EVENTS</button>
-  </div>
+  <!-- Tab Content -->
+  {#if activeTab === 'BILLING'}
+    <section class="max-w-6xl mx-auto mt-12 bg-[#a4b8c2] p-8 rounded-lg text-black flex flex-col lg:flex-row gap-8">
+      <!-- Left: Text -->
+      <div class="flex-1 bg-pink-200 p-6 rounded-lg">
+        <h2 class="text-2xl font-bold mb-2">Real-Time Convergent Billing</h2>
+        <p class="text-gray-700">
+          Instantaneous, accurate billing across all services and payment methods.
+        </p>
+      </div>
 
-  <div class="bg-[#A9BCC4] mx-auto mt-10 p-10 w-[90%] max-w-[1100px] rounded-[30px]">
-    <h3 class="text-[24px] text-black font-bold mb-4">Product Catalog</h3>
-    <p class="text-black text-[16px] max-w-2xl leading-relaxed">
-      Intuitive tools that empower customers to manage their accounts with ease, freeing up your team.
-    </p>
-
-    <div class="mt-10 flex flex-wrap gap-8 items-start">
-      <div class="bg-white rounded-[20px] p-6 shadow-md w-[200px] h-[180px]">
-        <div class="text-xs text-gray-500 mb-4 font-semibold tracking-wide">ADD-ONS</div>
-        <div class="flex gap-4">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix" class="w-8 h-8" />
-          <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple" class="w-8 h-8" />
-          <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg" alt="Spotify" class="w-8 h-8" />
+      <!-- Right: Billing UI Preview -->
+      <div class="flex-1 bg-white p-6 rounded-lg">
+        <div class="flex items-center gap-2 mb-4">
+          <img src="https://cdn-icons-png.flaticon.com/512/5968/5968282.png" alt="EMS" class="h-6 w-6" />
+          <span class="font-bold text-sm">EMS</span>
+        </div>
+        <div class="bg-gray-100 p-4 rounded-md space-y-4">
+          <div class="grid grid-cols-3 gap-4">
+            <div class="bg-white p-4 rounded shadow">
+              <div class="text-gray-500 text-xs">Estimated invoices</div>
+              <div class="text-xl font-bold">112 355</div>
+            </div>
+            <div class="bg-white p-4 rounded shadow">
+              <div class="text-gray-500 text-xs">Estimated duration</div>
+              <div class="text-xl font-bold">45 MIN</div>
+            </div>
+            <div class="bg-white p-4 rounded shadow">
+              <div class="text-gray-500 text-xs">Current period ends</div>
+              <div class="text-xl font-bold">17 DAYS</div>
+            </div>
+          </div>
+          <div class="text-sm text-gray-500">Billing period: MAR 2025</div>
+          <div class="text-xs text-gray-500 flex justify-between">
+            <span>Total invoices: 114 824</span>
+            <span>Collected Payments: 44%</span>
+            <span>Duration: 47 MIN 23 SEC</span>
+          </div>
         </div>
       </div>
+    </section>
+  {/if}
 
-      <div class="bg-white rounded-[20px] p-6 shadow-md text-black w-[240px] h-[180px] relative">
-        <div class="absolute top-4 right-4 w-2 h-2 rounded-full bg-green-400"></div>
-        <div class="text-[10px] text-gray-500 font-semibold mb-1 tracking-widest">MOBILEAPP ONLY</div>
-        <div class="text-[28px] font-extrabold leading-none">TOTAL<br>UNLIMITED</div>
-        <div class="text-[14px] text-gray-600 mt-2">Unlimited minutes</div>
-      </div>
-    </div>
-  </div>
+  <!-- Footer Navigation -->
+  <footer class="mt-12 flex flex-wrap justify-center gap-4 bg-[#617882] p-6 text-white text-sm">
+    <button class="bg-black px-4 py-2 rounded-md">PRODUCTS +</button>
+    <button class="bg-black px-4 py-2 rounded-md">SOLUTIONS +</button>
+    <button class="bg-black px-4 py-2 rounded-md">RESOURCES +</button>
+    <button class="bg-black px-4 py-2 rounded-md">SERVICES</button>
+    <button class="bg-cyan-400 text-black px-4 py-2 rounded-md font-bold">BOOK A MEETING</button>
+  </footer>
+</main>
 
-  <div class="fixed bottom-0 left-0 right-0 bg-[#5E707A] px-10 py-5 flex justify-between items-center text-white text-sm z-50">
-    <div class="flex gap-6">
-      <button class="hover:underline">PRODUCTS +</button>
-      <button class="hover:underline">SOLUTIONS +</button>
-      <button class="hover:underline">RESOURCES +</button>
-      <button class="hover:underline">SERVICES</button>
-    </div>
-    <button class="bg-cyan-300 text-black px-6 py-2 rounded-xl font-bold">BOOK A MEETING</button>
-  </div>
-</div>
+<style>
+  main {
+    font-family: 'Inter', sans-serif;
+  }
+</style>
